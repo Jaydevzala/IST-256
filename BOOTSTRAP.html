@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Angular Rest Create </title>
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+	<h1>SIGN IN TO GET MORE DETAILS!</h1>
+
+<body data-ng-app>
+<nav class="navbar navbar-default" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+<a class="navbar-brand" href="#">Sneaker guys</a>
+<button type="button" class="btn btn-default navbar-btn">Already a Customer? Login &nbsp;</button>
+<p class="navbar-text">Signed in as an Sneaker head</p>
+</div>
+</div>
+</nav>
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h3 class="panel-title">CUSTOMER Information</h3>
+</div>
+<form data-ng-submit="submit()" data-ng-controller="Ctrl">
+<div class="form-group">
+<label for="studentName" class="col-xs-2 control-label">CUSTOMER NAME:</label>
+<div class="col-sm-10">
+<input maxlength ="40" class ="form-control" id="CustomerName" placeholder="Customer Name" data-ng-model="CustomerName" required>
+</div>
+<label for="studentSSN" class="col-xs-2 control-label">CUSTOMER Account Number :</label>
+<div class="col-sm-10">
+<input type ="text"  maxlength="11" class ="form-control" id="Customer Account Number" placeholder="Customer Account Number" data-ng-model="Customer Account Number" required>
+</div>
+<label for="CustomerEmail" class="col-xs-2 control-label">CUSTOMER Email:</label>
+<div class="col-sm-10">
+<input type ="text"  maxlength="25" class ="form-control" id="CustomerEmail" placeholder="Customer Email" data-ng-model="CustomerEmail" required>
+</div>
+<label for="CustomerPhone" class="col-xs-2 control-label">CUSTOMER Phone:</label>
+<div class="col-sm-10">
+<input type ="text"  maxlength="15" class ="form-control" id="CustomerPhone" placeholder="Customer Phone" data-ng-model="CustomerPhone" required>
+</div>
+
+</div>
+<p><input type="submit" id="submit" value="Submit" /></p>
+</form>
+<p>Sneaker Guys Inc.</p>
+</div>
+<script src="https://ajax.googleappis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleappis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script>
+function Ctrl($scope){
+$scope.submit = function (){
+
+var query = "https//localhost:27206/RESTService.svc/create?";
+query += "studentName" + $scope.studentName;
+query += "studentSSN" + $scope.studentSSN;
+query += "studentEmail" + $scope.studentEmail;
+query += "studentPhone" + $scope.studentPhone;
+$.ajax({url: query, crossDomain: true, dataType: 'json', type: 'GET'})
+.done(function (json){
+ $scope.response = json;
+$scope.$apply();
+ })
+.fail(function (){
+alert("Error");
+})
+}
+
+}
+
+
+
+</script>
+</body>
+</html>
+
