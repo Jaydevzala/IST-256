@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head><title>Angular Rest Create</title>
+<!--Using a content delivery network - watch if they go down so does your site-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body data-ng-app>
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+	<div class="navbar-header">
+	<a class="navbar-brand" href="#">Customer Details</a>
+	</div>
+	<ul class="nav navbar-nav">
+	<li class="active"><a href="create.html">Create</a></li>
+	<li><a href="read.html">Read</a></li>
+	<li><a href="update.html">Update</a></li>
+	<li><a href="delete.html">Delete</a></li>
+	</ul>
+	</div>
+	</nav>
+		<div class="container">
+  <div class="jumbotron">
+    <h1>SIGN UP</h1>      
+    <p>CREATE, READ, UPDATE, DELETE</p>
+  </div>
+  <p></p>      
+  <p></p>      
+</div>
+<div class="dropdown">
+<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+	<li><a href="create.html">Create Page</a></li>
+    <li><a href="read.html">Read Page</a></li>
+    <li><a href="update.html">Update Page</a></li>
+    <li><a href="delete.html">Delete Page</a> </li>
+	<li><a href="post.html">Post Page</a> </li>
+	<li><a href="readAll.html">Read All Page</a> </li>
+</ul>
+</div>
+<div class="container">
+  <h2></h2>
+  <p></p>                  
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="create.html">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">read.html</a></li>
+    <li class="page-item"><a class="page-link" href="#">update.html</a></li>
+	<li class="page-item"><a class="page-link" href="#">create.html</a></li>
+    <li class="page-item"><a class="page-link" href="#">delete.html</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</div>
+
+</div>
+    <form data-ng-submit="submit()" data-ng-controller="Ctrl">
+	<div>
+	<label>Customer ID:</label>
+	<input data-ng-model="CustomerID" class="form-control" placeholder="Enter Customer ID" />
+	</div>
+	<div>
+    <label>Customer Name:</label>
+	<input data-ng-model="CustomerName" class="form-control" placeholder="Enter Customer Name" />
+	</div>
+	<div>
+    <label>Customer SSN:</label>
+	<input data-ng-model="CustomerSSN" class="form-control" placeholder="Enter Customer SSN" />
+	</div>
+	<div>
+    <label>Customer Email:</label>
+	<input data-ng-model="CustomerEmail" class="form-control" placeholder="Enter Customer Email" />
+	</div>
+	<div>
+    <label>Customer Phone:</label>
+	<input data-ng-model="CustomerPhone" class="form-control" placeholder="Enter Customer Phone" />
+	</div>
+	
+	<button type="button" id="submit" value="Submit" class="btn btn-primary">Submit</button>
+	<p><h3>Request:</h3> {{ request }}</p>
+    <p><h3>Response:</h3> {{ response }}</p>
+
+</form>
+</body>
+<script>
+    function Ctrl($scope) {
+        $scope.submit = function () {
+            //Make sure to change the host and port to match the URL 
+            var query = "http://localhost:3000/Create?";
+			query += "CustomerID=" + $scope.CustomerID;
+            query += "&CustomerName=" + $scope.CustomerName;
+            query += "&CustomerSSN=" + $scope.CustomerSSN;
+            query += "&CustomerEmail=" + $scope.CustomerEmail;
+            query += "&CustomerPhone=" + $scope.CustomerPhone;
+			$scope.request = query;
+			$scope.$apply();
+            $.ajax({ url: query, crossDomain: true, dataType: 'json', type: 'GET' })
+            .done(function (json) {
+                $scope.response = json.result;
+                $scope.$apply();
+            })
+            .fail(function () {
+                alert("Error");
+            });
+        }
+    }
+    </script>
+</html>
